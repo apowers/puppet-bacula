@@ -1,0 +1,14 @@
+# This file is managed by Puppet class <%= @name %>
+
+Client {
+  Name          = <%= @name %>
+  Address       = <%= @address %>
+  FDPort        = <%= @fdport %>
+  Catalog       = <%= @catalog %>
+  Password      = <%= @password %>
+  FileRetention = <%= @file_retention %>
+  JobRetention  = <%= @job_retention %>
+  AutoPrune     = <%= @auto_prune %>
+  MaximumConcurrentJobs = <%= @maximum_jobs %>
+  <%= @priority && "Priority      = #{@priority}" %>
+}

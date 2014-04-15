@@ -1,0 +1,34 @@
+# This file is managed by Puppet class <%= @name %>
+
+<%- @merged_sd_options.sort.each do |k, v| -%>
+<%- if v.is_a?(Hash) -%>
+<%= k %> {
+<%- v.sort.each do |key, value| -%>
+    <%- if value.is_a?(Array) -%>
+    <%- value.sort.each do |a| -%>
+    <%= key %> = <%= a %>
+    <%- end -%>
+    <%- else -%>
+    <%= key %> = <%= value %>
+    <%- end -%>
+<%- end -%>
+}
+<%- else -%>
+<%- if v.is_a?(Array) -%>
+<%- v.sort.each do |a| -%>
+<%= k %> = <%= a %>
+<%- end -%>
+<%- else -%>
+<%= k %> = <%= v %>
+<%- end -%>
+<%- end -%>
+<%- end -%>
+
+# Include Autochangers
+@|"sh -c 'for f in <%= @config_dir %>/autochanger/*;do echo @${f};done'"
+
+# Include Devices
+@|"sh -c 'for f in <%= @config_dir %>/devices/*;do echo @${f};done'"
+
+# Include Directors
+@|"sh -c 'for f in <%= @config_dir %>/directors/*;do echo @${f};done'"

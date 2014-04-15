@@ -1,0 +1,55 @@
+# This file is managed by Puppet class <%= @name %>
+
+<%- @merged_director_options.sort.each do |k, v| -%>
+<%- if v.is_a?(Hash) -%>
+<%= k %> {
+<%- v.sort.each do |key, value| -%>
+    <%- if value.is_a?(Array) -%>
+    <%- value.sort.each do |a| -%>
+    <%= key %> = <%= a %>
+    <%- end -%>
+    <%- else -%>
+    <%= key %> = <%= value %>
+    <%- end -%>
+<%- end -%>
+}
+<%- else -%>
+<%- if v.is_a?(Array) -%>
+<%- v.sort.each do |a| -%>
+<%= k %> = <%= a %>
+<%- end -%>
+<%- else -%>
+<%= k %> = <%= v %>
+<%- end -%>
+<%- end -%>
+<%- end -%>
+
+# Include Catalogs
+@|"sh -c 'for f in <%= @config_dir %>/catalogs/*;do echo @${f};done'"
+
+# Include Clients
+@|"sh -c 'for f in <%= @config_dir %>/clients/*;do echo @${f};done'"
+
+# Include Consols
+@|"sh -c 'for f in <%= @config_dir %>/consoles/*;do echo @${f};done'"
+
+# Include FileSets
+@|"sh -c 'for f in <%= @config_dir %>/filesets/*;do echo @${f};done'"
+
+# Include JobDefs
+@|"sh -c 'for f in <%= @config_dir %>/jobdefs/*;do echo @${f};done'"
+
+# Include Jobs
+@|"sh -c 'for f in <%= @config_dir %>/jobs/*;do echo @${f};done'"
+
+# Include Messages
+@|"sh -c 'for f in <%= @config_dir %>/messages/*;do echo @${f};done'"
+
+# Include Pools
+@|"sh -c 'for f in <%= @config_dir %>/pools/*;do echo @${f};done'"
+
+# Include Schedules
+@|"sh -c 'for f in <%= @config_dir %>/schedules/*;do echo @${f};done'"
+
+# Include Storage
+@|"sh -c 'for f in <%= @config_dir %>/storage/*;do echo @${f};done'"
