@@ -1,0 +1,23 @@
+# This file is managed by Puppet class <%= @name %>
+
+FileSet {
+  Name          = <%= @name %>
+<%- @options.sort.each do |key, value| -%>
+  <%= key %> = <%= value %>
+<%- end -%>
+  Include = {
+    Options = {
+<%- @include_options.sort.each do |key, value| -%>
+      <%= key %> = <%= value %>
+<%- end -%>
+    }
+<%- @include_files.sort.each do |value| -%>
+    File = "<%= value %>"
+<%- end -%>
+  }
+  Exclude = {
+<%- @exclude_files.sort.each do |value| -%>
+      File = "<%= value %>"
+<%- end -%>
+  }
+}
