@@ -1,7 +1,7 @@
 # Configuration subfile for Bacula.
 #
 
-define bacula::client (
+define bacula::subfile::client (
   $config_dir     = undef,
   $address        = $::fqdn,
   $catalog        = undef,
@@ -11,7 +11,7 @@ define bacula::client (
   $job_retention  = '180 days',
   $auto_prune     = 'yes',
   $maximum_jobs   = '1',
-  $priority       = undef
+  $priority       = undef,
 ) {
 
   $conf_dir_real = $config_dir ? {
@@ -26,7 +26,9 @@ define bacula::client (
   file { "${conf_dir_real}/${name}":
     ensure  => $ensure,
     mode    => '0440',
-    content => template('bacula/client.erb')
+    content => template('bacula/client.erb'),
+    require => Class['bacula::director::config'],
+    notify  => Class['bacula::director::service'],
   }
 
 }
