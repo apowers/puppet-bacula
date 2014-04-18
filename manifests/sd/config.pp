@@ -24,7 +24,7 @@ class bacula::sd::config (
   file { "${config_dir}/${config_file}":
     ensure  => $ensure,
     mode    => '0440',
-    content => template('bacula/config.erb')
+    content => template('bacula/bacula-sd.conf.erb')
   }
 
 }

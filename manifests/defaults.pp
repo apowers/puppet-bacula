@@ -41,7 +41,7 @@ class bacula::defaults {
   }
 
   $director_package_name = $::osfamily ? {
-    'Debian' => 'bacula-console',
+    'Debian' => 'bacula-server',
     default  => fail('Unsupported Platform')
   }
   $director_config_file  = $::osfamily ? {
@@ -64,6 +64,15 @@ class bacula::defaults {
       'Password'                => 'password',
       'Messages'                => 'Daemon',
       'DirAddress'              => '127.0.0.1',
+    }
+  }
+
+  $default_bconsole_options = {
+    'Director' => {
+      'Name'      => "${::fqdn}-dir",
+      'DIRport'   => '9101',
+      'Address'   => 'localhost',
+      'Password'  => 'password',
     }
   }
 
