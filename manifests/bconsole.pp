@@ -3,12 +3,11 @@
 # Full description of class bacula is in the README.
 #
 class bacula::bconsole (
-  $options = {}
+  $options    = $bacula::director::bconsole_options,
+  $config_dir = $bacula::director::config_dir,
 ) {
 
-  $merged_options = { 'Director' => $options }
-
-  $merged_options = merge($bacula::defaults::default_bconsole_options, $bconsole_options)
+  $merged_options = merge($bacula::defaults::default_bconsole_options, $options)
   file { "${config_dir}/bconsole.conf":
     ensure  => $ensure,
     mode    => '0440',

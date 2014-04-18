@@ -7,7 +7,6 @@ class bacula::director::config (
   $options          = $bacula::director::config_options,
   $config_dir       = $bacula::director::config_dir,
   $config_file      = $bacula::director::config_file,
-  $bconsole_options = $bacula::director::bconsole_options,
 ) {
 
   $include_directories = [
@@ -33,13 +32,6 @@ class bacula::director::config (
     ensure  => $ensure,
     mode    => '0440',
     content => template('bacula/bacula-dir.conf.erb')
-  }
-
-  $merged_options = merge($bacula::defaults::default_bconsole_options, $bconsole_options)
-  file { "${config_dir}/bconsole.conf":
-    ensure  => $ensure,
-    mode    => '0440',
-    content => template('bacula/config.erb')
   }
 
 }
