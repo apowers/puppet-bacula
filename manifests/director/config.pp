@@ -1,8 +1,17 @@
 # == Class: bacula
 #
+# Includes the Catalog resource.
+#
 # Full description of class bacula is in the README.
 #
 class bacula::director::config (
+  $catalog_name     = $bacula::director::catalog_name,
+  $db_name          = $bacula::director::db_name,
+  $db_address       = $bacula::director::db_address,
+  $db_port          = $bacula::director::db_port,
+  $db_socket        = $bacula::director::db_socket,
+  $db_user          = $bacula::director::db_user,
+  $db_password      = $bacula::director::db_password,
   $ensure           = $bacula::director::config_ensure,
   $options          = $bacula::director::config_options,
   $config_dir       = $bacula::director::config_dir,
@@ -10,7 +19,6 @@ class bacula::director::config (
 ) {
 
   $include_directories = [
-    "${config_dir}/catalogs",
     "${config_dir}/clients",
     "${config_dir}/consoles",
     "${config_dir}/filesets",

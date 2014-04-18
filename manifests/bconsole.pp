@@ -7,7 +7,8 @@ class bacula::bconsole (
   $config_dir = $bacula::director::config_dir,
 ) {
 
-  $merged_options = merge($bacula::defaults::default_bconsole_options, $options)
+  $merged_options = { 'Director' => merge($bacula::defaults::default_bconsole_options, $options) }
+
   file { "${config_dir}/bconsole.conf":
     ensure  => $ensure,
     mode    => '0440',

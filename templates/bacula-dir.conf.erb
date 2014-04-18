@@ -1,31 +1,43 @@
 # This file is managed by Puppet class <%= @name %>
 
-<%- @merged_director_options.sort.each do |k, v| -%>
-<%- if v.is_a?(Hash) -%>
-<%= k %> {
-<%- v.sort.each do |key, value| -%>
-    <%- if value.is_a?(Array) -%>
-    <%- value.sort.each do |a| -%>
-    <%= key %> = <%= a %>
-    <%- end -%>
-    <%- else -%>
-    <%= key %> = <%= value %>
-    <%- end -%>
+Director {
+  <%- @merged_director_options.sort.each do |k, v| -%>
+  <%- if v.is_a?(Hash) -%>
+  <%= k %> {
+  <%- v.sort.each do |key, value| -%>
+      <%- if value.is_a?(Array) -%>
+      <%- value.sort.each do |a| -%>
+      <%= key %> = <%= a %>
+      <%- end -%>
+      <%- else -%>
+      <%= key %> = <%= value %>
+      <%- end -%>
+  <%- end -%>
+  }
+  <%- else -%>
+  <%- if v.is_a?(Array) -%>
+  <%- v.sort.each do |a| -%>
+  <%= k %> = <%= a %>
+  <%- end -%>
+  <%- else -%>
+  <%= k %> = <%= v %>
+  <%- end -%>
+  <%- end -%>
+  <%- end -%>
+}
+
+Catalog {
+  Name      = <%= @catalog_name %>
+  DBName    = <%= @db_name %>
+  DBAddress = <%= @db_address %>
+  user      = <%= @db_user %>
+  password  = <%= @db_password %>
+<%- if @db_socket -%>
+  DBSocket  = <%= @db_socket %>
+<%- else -%>
+  DBPort    = <%= @db_port %>
 <%- end -%>
 }
-<%- else -%>
-<%- if v.is_a?(Array) -%>
-<%- v.sort.each do |a| -%>
-<%= k %> = <%= a %>
-<%- end -%>
-<%- else -%>
-<%= k %> = <%= v %>
-<%- end -%>
-<%- end -%>
-<%- end -%>
-
-# Include Catalogs
-@|"sh -c 'for f in <%= @config_dir %>/catalogs/*;do echo @${f};done'"
 
 # Include Clients
 @|"sh -c 'for f in <%= @config_dir %>/clients/*;do echo @${f};done'"
