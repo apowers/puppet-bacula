@@ -5,7 +5,7 @@ define bacula::subfile::message (
   $options    = {},
   $config_dir = undef,
 ) {
-  $merged_options = { 'Message' => $options }
+  $merged_options = { 'Messages' => $options }
 
   $conf_dir_real = $config_dir ? {
     undef   => "${bacula::defaults::config_directory}/messages",

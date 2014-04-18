@@ -5,7 +5,7 @@ define bacula::subfile::jobdef (
   $options    = {},
   $config_dir = undef,
 ) {
-  $merged_options = { 'JobDef' => $options }
+  $merged_options = { 'JobDefs' => $options }
 
   $conf_dir_real = $config_dir ? {
     undef   => "${bacula::defaults::config_directory}/jobdefs",

@@ -41,7 +41,7 @@ class bacula::defaults {
   }
 
   $director_package_name = $::osfamily ? {
-    'Debian' => 'bacula-server',
+    'Debian' => ['bacula-server','bacula-console'],
     default  => fail('Unsupported Platform')
   }
   $director_config_file  = $::osfamily ? {
@@ -54,26 +54,22 @@ class bacula::defaults {
   }
 
   $default_director_options = {
-    'Director' => {
-      'Name'                    => "${::fqdn}-dir",
-      'DIRport'                 => '9101',
-      'QueryFile'               => '"/etc/bacula/scripts/query.sql"',
-      'WorkingDirectory'        => '"/var/lib/bacula"',
-      'PidDirectory'            => '"/var/run/bacula"',
-      'Maximum Concurrent Jobs' => '1',
-      'Password'                => 'password',
-      'Messages'                => 'Daemon',
-      'DirAddress'              => '127.0.0.1',
-    }
+    'Name'                    => "${::fqdn}-dir",
+    'DIRport'                 => '9101',
+    'QueryFile'               => '"/etc/bacula/scripts/query.sql"',
+    'WorkingDirectory'        => '"/var/lib/bacula"',
+    'PidDirectory'            => '"/var/run/bacula"',
+    'Maximum Concurrent Jobs' => '1',
+    'Password'                => 'password',
+    'Messages'                => 'Daemon',
+    'DirAddress'              => '127.0.0.1',
   }
 
   $default_bconsole_options = {
-    'Director' => {
-      'Name'      => "${::fqdn}-dir",
-      'DIRport'   => '9101',
-      'Address'   => 'localhost',
-      'Password'  => 'password',
-    }
+    'Name'      => "${::fqdn}-dir",
+    'DIRport'   => '9101',
+    'Address'   => 'localhost',
+    'Password'  => 'password',
   }
 
   $sd_package_name = $::osfamily ? {
