@@ -14,6 +14,8 @@ define bacula::subfile::fileset (
     default => $config_dir,
   }
 
+  $owner = $bacula::director::file_owner
+
   validate_hash($options)
   validate_hash($include_options)
   validate_array($include_files)
@@ -23,6 +25,7 @@ define bacula::subfile::fileset (
   file { "${conf_dir_real}/${name}":
     ensure  => $ensure,
     mode    => '0440',
+    owner   => $owner,
     content => template('bacula/fileset.erb'),
     require => Class['bacula::director::config'],
     notify  => Class['bacula::director::service'],

@@ -13,6 +13,7 @@ class bacula::sd (
   $package_name     = $bacula::defaults::sd_package_name,
   $config_file      = $bacula::defaults::sd_config_file,
   $config_dir       = $bacula::defaults::config_directory,
+  $file_owner       = $bacula::defaults::file_owner,
 ) inherits bacula::defaults {
 
   anchor { 'bacula::sd::begin': } ->
