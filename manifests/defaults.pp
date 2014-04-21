@@ -8,6 +8,11 @@ class bacula::defaults {
     default  => fail('Unsupported Platform')
   }
 
+  $file_owner  = $::osfamily ? {
+    'Debian'  => 'bacula',
+    default  => fail('Unsupported Platform')
+  }
+
   $fd_package_name = $::osfamily ? {
     'Debian' => 'bacula-fd',
     default  => fail('Unsupported Platform')

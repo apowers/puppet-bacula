@@ -20,6 +20,7 @@ class bacula::director (
   $db_socket        = undef,
   $db_user          = 'bacula',
   $db_password      = 'password',
+  $file_owner       = $bacula::defaults::file_owner,
 ) inherits bacula::defaults {
 
   anchor { 'bacula::director::begin':   } ->

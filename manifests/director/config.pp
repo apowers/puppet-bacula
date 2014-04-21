@@ -16,6 +16,7 @@ class bacula::director::config (
   $options          = $bacula::director::config_options,
   $config_dir       = $bacula::director::config_dir,
   $config_file      = $bacula::director::config_file,
+  $owner            = $bacula::director::file_owner,
 ) {
 
   $include_directories = [
@@ -33,12 +34,14 @@ class bacula::director::config (
   file { $include_directories:
     ensure  => 'directory',
     mode    => '0440',
+    owner   => $owner,
   }
 
   $merged_director_options = merge($bacula::defaults::default_director_options, $options)
   file { "${config_dir}/${config_file}":
     ensure  => $ensure,
     mode    => '0440',
+    owner   => $owner,
     content => template('bacula/bacula-dir.conf.erb')
   }
 
