@@ -27,22 +27,12 @@ class bacula::defaults {
   }
 
   $default_fd_options = {
-    'FileDaemon' => {
-      'Name'                    => "${::fqdn}-fd",
-      'FDport'                  => '9102',
-      'WorkingDirectory'        => '/var/lib/bacula',
-      'Pid Directory'           => '/var/run/bacula',
-      'Maximum Concurrent Jobs' => '20',
-      'FDAddress'               => '127.0.0.1',
-    },
-    'Director' => {
-      'Name'      => "${::fqdn}-dir",
-      'Password'  => 'password',
-    },
-    'Messages' => {
-      'Name'      => 'Standard',
-      'director'  => "${::fqdn}-dir = all, !skipped, !restored",
-    }
+    'Name'                    => "${::fqdn}-fd",
+    'FDport'                  => '9102',
+    'WorkingDirectory'        => '/var/lib/bacula',
+    'Pid Directory'           => '/var/run/bacula',
+    'Maximum Concurrent Jobs' => '20',
+    'FDAddress'               => $::fqdn,
   }
 
   $director_package_name = $::osfamily ? {
