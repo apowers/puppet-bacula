@@ -4,6 +4,7 @@
 # Full description of class bacula is in the README.
 #
 class bacula::fd (
+  $director       = $::fqdn,
   $config_ensure  = 'present',
   $config_options = {},
   $package_ensure = 'installed',
