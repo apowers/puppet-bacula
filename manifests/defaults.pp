@@ -25,6 +25,10 @@ class bacula::defaults {
     'Debian' => 'bacula-fd',
     default  => fail('Unsupported Platform')
   }
+  $fd_restart_command = $::osfamily ? {
+    'Debian' => '/usr/sbin/service bacula-fd restart',
+    default  => fail('Unsupported Platform')
+  }
 
   $default_fd_options = {
     'Name'                    => "${::fqdn}-fd",
@@ -45,6 +49,10 @@ class bacula::defaults {
   }
   $director_service_name = $::osfamily ? {
     'Debian' => ['bacula-director'],
+    default  => fail('Unsupported Platform')
+  }
+  $dir_restart_command = $::osfamily ? {
+    'Debian' => '/usr/sbin/service bacula-director reload',
     default  => fail('Unsupported Platform')
   }
 
@@ -77,6 +85,10 @@ class bacula::defaults {
   }
   $sd_service_name = $::osfamily ? {
     'Debian' => 'bacula-sd',
+    default  => fail('Unsupported Platform')
+  }
+  $sd_restart_command = $::osfamily ? {
+    'Debian' => '/usr/sbin/service bacula-sd restart',
     default  => fail('Unsupported Platform')
   }
 
