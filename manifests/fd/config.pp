@@ -13,18 +13,16 @@ class bacula::fd::config (
   $message_options  = {},
 ) {
 
+  include bacula::defaults
+
   $default_dir_options = {
     'Name'      => "${director}-dir",
     'Password'  => $password,
   }
-  $default_message_options = {
-    'Name'      => 'Standard',
-    'director'  => "${director}-dir = all, !skipped, !restored",
-  }
 
   $merged_options = merge($bacula::defaults::default_fd_options, $options)
   $merged_dir_options = merge($default_dir_options, $dir_options)
-  $merged_message_options = merge($default_message_options, $message_options)
+  $merged_message_options = merge($bacula::defaults::default_fd_message_options, $message_options)
 
   file { "${config_dir}/${config_file}":
     ensure  => $ensure,
