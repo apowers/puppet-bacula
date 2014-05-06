@@ -99,11 +99,11 @@ class bacula::defaults {
       'WorkingDirectory'        => '"/var/lib/bacula"',
       'Pid Directory'           => '"/var/run/bacula"',
       'Maximum Concurrent Jobs' => '20',
-      'SDAddress'               => '127.0.0.1'
     },
     'Messages' => {
       'Name'      => 'Standard',
-      'director'  => "${::fqdn}-dir = all",
+      'Append'    => '"/var/log/bacula/bacula-fd.log" = all, !skipped'
+      'Director'  => "${::fqdn}-dir = all",
     }
   }
 
