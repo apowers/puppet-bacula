@@ -39,12 +39,6 @@ class bacula::defaults {
     'FDAddress'               => $::fqdn,
   }
 
-  $default_fd_message_options = {
-    'Name'      => 'Standard',
-    'Append'    => '"/var/log/bacula/bacula-fd.log" = all, !skipped'
-    'director'  => "${director}-dir = all, !skipped, !restored",
-  }
-
   $director_package_name = $::osfamily ? {
     'Debian' => ['bacula-server','bacula-console'],
     default  => fail('Unsupported Platform')
@@ -71,13 +65,13 @@ class bacula::defaults {
     'Maximum Concurrent Jobs' => '1',
     'Password'                => 'password',
     'Messages'                => 'Daemon',
-    'DirAddress'              => "${::fqdn}",
+    'DirAddress'              => $::fqdn,
   }
 
   $default_bconsole_options = {
     'Name'      => "${::fqdn}-dir",
     'DIRport'   => '9101',
-    'Address'   => "${::fqdn}",
+    'Address'   => $::fqdn,
     'Password'  => 'password',
   }
 
@@ -101,7 +95,7 @@ class bacula::defaults {
   $default_sd_options = {
     'Storage' => {
       'Name'                    => "${::fqdn}-sd",
-      'SDAddress'               => "${::fqdn}",
+      'SDAddress'               => $::fqdn,
       'SDPort'                  => '9103',
       'WorkingDirectory'        => '"/var/lib/bacula"',
       'Pid Directory'           => '"/var/run/bacula"',
@@ -109,7 +103,7 @@ class bacula::defaults {
     },
     'Messages' => {
       'Name'      => 'Standard',
-      'Append'    => '"/var/log/bacula/bacula-sd.log" = all, !skipped'
+      'Append'    => '"/var/log/bacula/bacula-sd.log" = all, !skipped',
       'Director'  => "${::fqdn}-dir = all",
     }
   }
