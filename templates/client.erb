@@ -9,6 +9,7 @@ Client {
   FileRetention = <%= @file_retention %>
   JobRetention  = <%= @job_retention %>
   AutoPrune     = <%= @auto_prune %>
-  MaximumConcurrentJobs = <%= @maximum_jobs %>
-  <%= @priority && "Priority      = #{@priority}" %>
+  <%- @config_options.sort.each do |key, value| -%>
+      <%= key %> = <%= value %>
+  <%- end -%>
 }

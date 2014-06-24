@@ -10,8 +10,7 @@ define bacula::subfile::client (
   $file_retention = '60 days',
   $job_retention  = '180 days',
   $auto_prune     = 'yes',
-  $maximum_jobs   = '1',
-  $priority       = undef,
+  $config_options = {},
 ) {
 
   $conf_dir_real = $config_dir ? {
@@ -23,10 +22,10 @@ define bacula::subfile::client (
 
   validate_string($address)
   validate_string($catalog)
-  validate_absolute_path("${conf_dir_real}/${type}")
+  validate_hash($config_options)
+  validate_absolute_path($conf_dir_real)
 
   file { "${conf_dir_real}/${name}":
-    ensure  => $ensure,
     mode    => '0440',
     owner   => $owner,
     content => template('bacula/client.erb'),
